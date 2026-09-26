@@ -1,248 +1,465 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>یک قرار ❤️</title>
+<title>یک قرار ❤️</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Tahoma, Arial, sans-serif;
-      background: linear-gradient(135deg, #ffdce7, #fff5f8);
-      color: #4b2732;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Tahoma, Arial, sans-serif;
+  background: linear-gradient(135deg, #ffdce7, #fff5f8);
+  color: #4b2732;
+}
 
-    .card {
-      width: 90%;
-      max-width: 420px;
-      padding: 35px 25px;
-      text-align: center;
-      background: rgba(255,255,255,0.94);
-      border-radius: 28px;
-      box-shadow: 0 15px 40px rgba(120,50,75,.2);
-    }
+.card {
+  width: 92%;
+  max-width: 430px;
+  padding: 32px 24px;
+  text-align: center;
+  background: rgba(255,255,255,.95);
+  border-radius: 28px;
+  box-shadow: 0 15px 40px rgba(120,50,75,.18);
+}
 
-    .emoji {
-      font-size: 55px;
-      margin-bottom: 15px;
-    }
+.emoji {
+  font-size: 55px;
+  margin-bottom: 12px;
+}
 
-    h1 {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
+h1 {
+  font-size: 25px;
+  margin: 12px 0 28px;
+}
 
-    button {
-      width: 100%;
-      border: none;
-      border-radius: 15px;
-      padding: 15px;
-      margin: 7px 0;
-      font-size: 18px;
-      cursor: pointer;
-    }
+button {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 7px 0;
+  font-family: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
 
-    .yes {
-      background: #e94f78;
-      color: white;
-    }
+.yes {
+  background: #e94f78;
+  color: white;
+}
 
-    .no {
-      background: #eeeeee;
-      color: #999;
-      cursor: not-allowed;
-    }
+.no {
+  background: #eeeeee;
+  color: #999;
+  cursor: not-allowed;
+}
 
-    input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0 18px;
-      border: 1px solid #e5b8c5;
-      border-radius: 12px;
-      font-size: 16px;
-    }
+.hidden {
+  display: none;
+}
 
-    label {
-      display: block;
-      text-align: right;
-      font-size: 14px;
-    }
+label {
+  display: block;
+  text-align: right;
+  margin: 15px 4px 8px;
+  font-size: 15px;
+}
 
-    .hidden {
-      display: none;
-    }
+select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e5b8c5;
+  border-radius: 13px;
+  background: white;
+  font-family: inherit;
+  font-size: 17px;
+  color: #4b2732;
+}
 
-    .final {
-      font-size: 21px;
-      line-height: 2.2;
-    }
+.date-box {
+  display: flex;
+  gap: 8px;
+}
 
-    .small {
-      color: #97717c;
-      font-size: 13px;
-      margin-top: 15px;
-    }
-  </style>
+.date-box select {
+  flex: 1;
+}
+
+.time-box {
+  display: flex;
+  gap: 8px;
+}
+
+.time-box select {
+  flex: 1;
+}
+
+.final {
+  font-size: 21px;
+  line-height: 2.3;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 13px;
+  border-radius: 15px;
+  background: #fff0f4;
+  font-size: 16px;
+}
+
+.small {
+  color: #97717c;
+  font-size: 13px;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
+<div class="card">
 
-    <!-- صفحه اول -->
-    <div id="page1">
+  <!-- صفحه اول -->
+  <div id="page1">
 
-      <div class="emoji">❤️</div>
+    <div class="emoji">❤️</div>
 
-      <h1>
-        با من میای سر قرار؟
-      </h1>
+    <h1>
+      با من میای سر قرار؟
+    </h1>
 
-      <button class="yes" onclick="nextPage()">
-        بله ❤️
-      </button>
+    <button class="yes" onclick="nextPage()">
+      بله ❤️
+    </button>
 
-      <button class="no" disabled>
-        نه
-      </button>
+    <button class="no" disabled>
+      نه
+    </button>
 
-      <div class="small">
-        یه قرار کوچیک و قشنگ 😊
-      </div>
-
-    </div>
-
-
-    <!-- صفحه دوم -->
-    <div id="page2" class="hidden">
-
-      <div class="emoji">📅</div>
-
-      <h1>
-        پس بریم قرارمون رو تنظیم کنیم ❤️
-      </h1>
-
-      <label>
-        تاریخ قرار
-      </label>
-
-      <input
-        type="date"
-        id="date"
-      >
-
-      <label>
-        ساعت قرار
-      </label>
-
-      <input
-        type="time"
-        id="time"
-      >
-
-      <button
-        class="yes"
-        onclick="confirmDate()"
-      >
-        ثبت قرار ❤️
-      </button>
-
-    </div>
-
-
-    <!-- صفحه سوم -->
-    <div id="page3" class="hidden">
-
-      <div class="emoji">
-        🥰
-      </div>
-
-      <div class="final">
-
-        <strong>
-          خوشحالم که بهم نه نگفتی ❤️
-        </strong>
-
-        <br>
-
-        خودم میام دنبالت 😊
-
-      </div>
-
-      <p id="result"></p>
-
+    <div class="small">
+      یه قرار کوچیک و قشنگ 😊
     </div>
 
   </div>
 
 
+  <!-- صفحه دوم -->
+  <div id="page2" class="hidden">
+
+    <div class="emoji">📅</div>
+
+    <h1>
+      پس بریم قرارمون رو تنظیم کنیم ❤️
+    </h1>
+
+
+    <label>
+      تاریخ قرار
+    </label>
+
+    <div class="date-box">
+
+      <select id="day">
+        <option value="">روز</option>
+      </select>
+
+      <select id="month">
+        <option value="">ماه</option>
+      </select>
+
+      <select id="year">
+        <option value="">سال</option>
+      </select>
+
+    </div>
+
+
+    <label>
+      ساعت قرار
+    </label>
+
+    <div class="time-box">
+
+      <select id="hour">
+        <option value="">ساعت</option>
+      </select>
+
+      <select id="minute">
+        <option value="">دقیقه</option>
+      </select>
+
+    </div>
+
+
+    <button
+      class="yes"
+      onclick="confirmDate()">
+      ثبت قرار ❤️
+    </button>
+
+  </div>
+
+
+  <!-- صفحه سوم -->
+  <div id="page3" class="hidden">
+
+    <div class="emoji">
+      🥰
+    </div>
+
+    <div class="final">
+
+      <strong>
+        خوشحالم که بهم نه نگفتی ❤️
+      </strong>
+
+      <br>
+
+      خودم میام دنبالت 😊
+
+    </div>
+
+    <div
+      id="result"
+      class="result">
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
+
+/* تبدیل اعداد انگلیسی به فارسی */
+
+function fa(number) {
+
+  return number
+    .toString()
+    .replace(/0/g,"۰")
+    .replace(/1/g,"۱")
+    .replace(/2/g,"۲")
+    .replace(/3/g,"۳")
+    .replace(/4/g,"۴")
+    .replace(/5/g,"۵")
+    .replace(/6/g,"۶")
+    .replace(/7/g,"۷")
+    .replace(/8/g,"۸")
+    .replace(/9/g,"۹");
+
+}
+
+
+/* ماه‌های شمسی */
+
+const months = [
+  "فروردین",
+  "اردیبهشت",
+  "خرداد",
+  "تیر",
+  "مرداد",
+  "شهریور",
+  "مهر",
+  "آبان",
+  "آذر",
+  "دی",
+  "بهمن",
+  "اسفند"
+];
+
+
+/* ساخت روزها */
+
+const daySelect =
+  document.getElementById("day");
+
+for (let i = 1; i <= 31; i++) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = i;
+  option.textContent = fa(i);
+
+  daySelect.appendChild(option);
+
+}
+
+
+/* ساخت ماه‌ها */
+
+const monthSelect =
+  document.getElementById("month");
+
+months.forEach((month, index) => {
+
+  const option =
+    document.createElement("option");
+
+  option.value = index + 1;
+  option.textContent = month;
+
+  monthSelect.appendChild(option);
+
+});
+
+
+/* سال‌های شمسی */
+
+const yearSelect =
+  document.getElementById("year");
+
+for (let year = 1405; year <= 1410; year++) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = year;
+  option.textContent = fa(year);
+
+  yearSelect.appendChild(option);
+
+}
+
+
+/* ساعت */
+
+const hourSelect =
+  document.getElementById("hour");
+
+for (let h = 0; h <= 23; h++) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = h;
+  option.textContent = fa(
+    h.toString().padStart(2,"0")
+  );
+
+  hourSelect.appendChild(option);
+
+}
+
+
+/* دقیقه */
+
+const minuteSelect =
+  document.getElementById("minute");
+
+for (let m = 0; m < 60; m += 5) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = m;
+  option.textContent = fa(
+    m.toString().padStart(2,"0")
+  );
+
+  minuteSelect.appendChild(option);
+
+}
+
+
+/* رفتن به صفحه دوم */
 
 function nextPage() {
 
-  document.getElementById("page1")
+  document
+    .getElementById("page1")
     .classList.add("hidden");
 
-  document.getElementById("page2")
+  document
+    .getElementById("page2")
     .classList.remove("hidden");
 
 }
 
 
+/* ثبت قرار */
+
 function confirmDate() {
 
-  const date =
-    document.getElementById("date").value;
+  const day =
+    daySelect.value;
 
-  const time =
-    document.getElementById("time").value;
+  const month =
+    monthSelect.value;
+
+  const year =
+    yearSelect.value;
+
+  const hour =
+    hourSelect.value;
+
+  const minute =
+    minuteSelect.value;
 
 
-  if (!date || !time) {
+  if (
+    !day ||
+    !month ||
+    !year ||
+    hour === "" ||
+    minute === ""
+  ) {
 
-    alert("لطفاً تاریخ و ساعت رو انتخاب کن ❤️");
+    alert(
+      "لطفاً تاریخ و ساعت قرار رو انتخاب کن ❤️"
+    );
 
     return;
   }
 
 
-  const selectedDate =
-    new Date(date + "T00:00:00");
+  const time =
+    fa(
+      hour.toString().padStart(2,"0")
+    )
+    + ":"
+    +
+    fa(
+      minute.toString().padStart(2,"0")
+    );
 
 
-  const formattedDate =
-    new Intl.DateTimeFormat(
-      "fa-IR",
-      {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      }
-    ).format(selectedDate);
+  const dateText =
+    fa(day)
+    + " "
+    + months[month - 1]
+    + " "
+    + fa(year);
 
 
-  document.getElementById("result").innerHTML =
-    "قرارمون: " +
-    formattedDate +
-    " ساعت " +
-    time +
-    " ❤️";
+  document
+    .getElementById("result")
+    .innerHTML =
+      "قرارمون: "
+      + dateText
+      + "<br>"
+      + "ساعت "
+      + time
+      + " ❤️";
 
 
-  document.getElementById("page2")
+  document
+    .getElementById("page2")
     .classList.add("hidden");
 
-  document.getElementById("page3")
+  document
+    .getElementById("page3")
     .classList.remove("hidden");
 
 }
