@@ -86,20 +86,13 @@ select {
   color: #4b2732;
 }
 
-.date-box {
-  display: flex;
-  gap: 8px;
-}
-
-.date-box select {
-  flex: 1;
-}
-
+.date-box,
 .time-box {
   display: flex;
   gap: 8px;
 }
 
+.date-box select,
 .time-box select {
   flex: 1;
 }
@@ -121,6 +114,12 @@ select {
   color: #97717c;
   font-size: 13px;
   margin-top: 15px;
+}
+
+.status {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #97717c;
 }
 </style>
 </head>
@@ -162,7 +161,6 @@ select {
       پس بریم قرارمون رو تنظیم کنیم ❤️
     </h1>
 
-
     <label>
       تاریخ قرار
     </label>
@@ -183,7 +181,6 @@ select {
 
     </div>
 
-
     <label>
       ساعت قرار
     </label>
@@ -200,12 +197,13 @@ select {
 
     </div>
 
-
     <button
       class="yes"
       onclick="confirmDate()">
       ثبت قرار ❤️
     </button>
+
+    <div id="status" class="status"></div>
 
   </div>
 
@@ -229,10 +227,7 @@ select {
 
     </div>
 
-    <div
-      id="result"
-      class="result">
-    </div>
+    <div id="result" class="result"></div>
 
   </div>
 
@@ -241,7 +236,17 @@ select {
 
 <script>
 
-/* تبدیل اعداد انگلیسی به فارسی */
+/* =========================================
+   آدرس Google Apps Script
+========================================= */
+
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyszu_ysba-6ENoLl-uWQ8gpdlwWumG7NNkr2yk5zGMSlzy71bWGctH04H4QouZysM1/exec";
+
+
+/* =========================================
+   تبدیل اعداد انگلیسی به فارسی
+========================================= */
 
 function fa(number) {
 
@@ -261,7 +266,9 @@ function fa(number) {
 }
 
 
-/* ماه‌های شمسی */
+/* =========================================
+   ماه‌های شمسی
+========================================= */
 
 const months = [
   "فروردین",
@@ -279,7 +286,9 @@ const months = [
 ];
 
 
-/* ساخت روزها */
+/* =========================================
+   ساخت روزها
+========================================= */
 
 const daySelect =
   document.getElementById("day");
@@ -297,7 +306,9 @@ for (let i = 1; i <= 31; i++) {
 }
 
 
-/* ساخت ماه‌ها */
+/* =========================================
+   ساخت ماه‌ها
+========================================= */
 
 const monthSelect =
   document.getElementById("month");
@@ -315,7 +326,9 @@ months.forEach((month, index) => {
 });
 
 
-/* سال‌های شمسی */
+/* =========================================
+   سال‌های شمسی
+========================================= */
 
 const yearSelect =
   document.getElementById("year");
@@ -333,7 +346,9 @@ for (let year = 1405; year <= 1410; year++) {
 }
 
 
-/* ساعت */
+/* =========================================
+   ساعت
+========================================= */
 
 const hourSelect =
   document.getElementById("hour");
@@ -344,6 +359,7 @@ for (let h = 0; h <= 23; h++) {
     document.createElement("option");
 
   option.value = h;
+
   option.textContent = fa(
     h.toString().padStart(2,"0")
   );
@@ -353,7 +369,9 @@ for (let h = 0; h <= 23; h++) {
 }
 
 
-/* دقیقه */
+/* =========================================
+   دقیقه
+========================================= */
 
 const minuteSelect =
   document.getElementById("minute");
@@ -364,6 +382,7 @@ for (let m = 0; m < 60; m += 5) {
     document.createElement("option");
 
   option.value = m;
+
   option.textContent = fa(
     m.toString().padStart(2,"0")
   );
@@ -373,7 +392,9 @@ for (let m = 0; m < 60; m += 5) {
 }
 
 
-/* رفتن به صفحه دوم */
+/* =========================================
+   رفتن به صفحه دوم
+========================================= */
 
 function nextPage() {
 
@@ -388,7 +409,44 @@ function nextPage() {
 }
 
 
-/* ثبت قرار */
+/* =========================================
+   ارسال اطلاعات به Google Sheets
+========================================= */
+
+function saveToGoogleSheets(date, time) {
+
+  const data = {
+    date: date,
+    time: time
+  };
+
+  fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    mode: "no-cors",
+
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+
+    body: JSON.stringify(data)
+
+  }).catch(function(error) {
+
+    console.log(
+      "خطا در ارسال اطلاعات:",
+      error
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   ثبت قرار
+========================================= */
 
 function confirmDate() {
 
@@ -408,6 +466,8 @@ function confirmDate() {
     minuteSelect.value;
 
 
+  /* بررسی کامل بودن اطلاعات */
+
   if (
     !day ||
     !month ||
@@ -421,8 +481,11 @@ function confirmDate() {
     );
 
     return;
+
   }
 
+
+  /* ساخت ساعت */
 
   const time =
     fa(
@@ -435,6 +498,8 @@ function confirmDate() {
     );
 
 
+  /* ساخت تاریخ */
+
   const dateText =
     fa(day)
     + " "
@@ -442,6 +507,16 @@ function confirmDate() {
     + " "
     + fa(year);
 
+
+  /* ارسال به Google Sheets */
+
+  saveToGoogleSheets(
+    dateText,
+    time
+  );
+
+
+  /* نمایش نتیجه */
 
   document
     .getElementById("result")
@@ -453,6 +528,8 @@ function confirmDate() {
       + time
       + " ❤️";
 
+
+  /* رفتن به صفحه سوم */
 
   document
     .getElementById("page2")
